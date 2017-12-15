@@ -17,6 +17,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.google.protobuf.ByteString;
 
+@SuppressWarnings("serial")
 @WebServlet(
     name = "HelloAppEngine",
     urlPatterns = {"/hello"}
