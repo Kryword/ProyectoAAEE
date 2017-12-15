@@ -1,0 +1,41 @@
+/* Este CSS se encarga de darle la parte visual a la web. Embellece el html */
+
+/* Normal Elements */
+html {
+  background-image: url("zebra.jpg");
+  text-align:center;
+}
+div {
+  border: 1px solid black;
+  border-radius: 2em;
+  text-align:center;
+  width:80%;
+  margin: 0 auto;
+}
+ul{
+	text-align:left;
+}
+
+/* IDs */
+#title{
+  border: 2px solid black;
+  border-radius: 2em;
+  font-size:3em;
+  text-align: center;
+  text-shadow: 3px 2px tomato;
+  width:80%;
+  margin: 0 auto;
+  margin-bottom: 0.5em;
+}
+
+#formdiv{
+	border: 3px solid black;
+	text-align:center;
+	width:80%;
+}
+
+
+/* Classes */
+.thumb{
+	zoom:40%;
+}

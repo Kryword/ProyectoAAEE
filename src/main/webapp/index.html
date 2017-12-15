@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+  	<head>
+	    <link rel="stylesheet" href="css/estilos.css">
+	    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>ProyectoAAEE</title>
+  	</head>
+
+  	<body>
+	  <script src="js/show.js"></script>
+	    <h1 id="title">ProyectoAAEE</h1>
+	    <div id="formdiv">
+	    <h2>Introduzca la imágen a continuación y el idioma en el que quiere la traducción:</h2>
+	    <form action="/hello" method="post" enctype="multipart/form-data">
+	    	<p>Archivo:</p><input type="file" id="files" name="imagen" >
+	    	<p>Idioma:</p><input type="text" name="texto" placeholder="Introduce algo de texto en esta caja">
+	    	<input type="submit">
+	    </form>
+		<output id="list"></output>
+		<br />
+		</div>
+		<script src="js/show.js"></script>
+	</body>
+</html>
