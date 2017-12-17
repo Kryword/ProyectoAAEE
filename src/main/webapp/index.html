@@ -5,29 +5,32 @@
   	<head>
 	    <link rel="stylesheet" href="css/estilos.css">
 	    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"">
 	    <title>ProyectoAAEE</title>
   	</head>
 
   	<body>
 	  <script src="js/show.js"></script>
-	    <h1 id="title">ProyectoAAEE</h1>
+	    <header><h1 id="title">Traducción de imágenes</h1></header>
 	    <div id="formdiv">
-	    <h2>Introduzca la imágen a continuación y el idioma en el que quiere la traducción:</h2>
-	    <form action="/hello" method="post" enctype="multipart/form-data">
-	    	<label>Archivo:<input type="file" id="files" name="imagen" accept="image/*" required></label>
-	    	<label>Idioma:<input list="lang" name="lang" pattern="en|es|de|fr|ja" required></label>
-	    	<datalist id="lang">
-			  <option value="en">English</option>
-			  <option value="es">Spanish</option>
-			  <option value="de">German</option>
-			  <option value="fr">French</option>
-			  <option value="ja">Japanese</option>
-			</datalist>
-	    	<input type="submit">
-	    </form>
-		<output id="list"></output>
-		<br />
+		    <h2>Introduzca la imágen y el idioma en el que quiere la traducción:</h2>
+		    <form action="/traduce" method="post" enctype="multipart/form-data">
+		    	<label class="custom-file-upload">Sube una imágen<input type="file" id="files" class="inputfile" name="imagen" accept="image/*" required></label>
+		    	<br/>
+		    	<input list="lang" name="lang" placeholder="Escoge un idioma" pattern="en|es|de|fr|ja" required>
+		    	<datalist id="lang">
+				  <option value="en">English</option>
+				  <option value="es">Spanish</option>
+				  <option value="de">German</option>
+				  <option value="fr">French</option>
+				  <option value="ja">Japanese</option>
+				</datalist>
+				<br/>
+		    	<input type="submit" class="custom-file-upload" id="submit" value="Traduce">
+		    </form>
+		    <div id="imageDiv">
+				<output id="list"></output>
+			</div>
 		</div>
 		<script src="js/show.js"></script>
 	</body>

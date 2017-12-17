@@ -18,7 +18,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 
 import com.google.protobuf.ByteString;
-import com.google.appengine.repackaged.com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.cloud.translate.Translate;
 import com.google.cloud.translate.Translate.TranslateOption;
 import com.google.cloud.translate.TranslateOptions;
@@ -34,40 +33,28 @@ import com.google.cloud.vision.v1.ImageAnnotatorClient;
 
 @SuppressWarnings("serial")
 @WebServlet(
-    name = "HelloAppEngine",
-    urlPatterns = {"/hello"}
+    name = "PostMethodHandler",
+    urlPatterns = {"/traduce"}
 )
-public class HelloAppEngine extends HttpServlet {
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) 
-      throws IOException {
-      
-    response.setContentType("text/plain");
-    response.setCharacterEncoding("UTF-8");
-
-    response.getWriter().print("Hello App Engine!\r\n");
-
-  }
-  
+public class PostMethodHandler extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) 
 	      throws IOException {
 	  response.setContentType("text/html; charset=UTF-8");
 	  response.setCharacterEncoding("UTF-8");
 	  PrintWriter out = response.getWriter();
-	  GoogleCredential credential = GoogleCredential.getApplicationDefault();
 	  out.print("<!DOCTYPE html>\n" + 
 	  		"<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">\n" + 
 	  		"\n" + 
 	  		"  	<head>\n" + 
 	  		"	    <link rel=\"stylesheet\" href=\"css/estilos.css\">\n" + 
 	  		"	    <meta charset=\"UTF-8\">\n" + 
-	  		"	    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" + 
+	  		"	    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\">\n" + 
 	  		"	    <title>ProyectoAAEE</title>\n" + 
 	  		"  	</head>\n" + 
 	  		"\n" + 
-	  		"  	<body>");
+	  		"  	<body>"
+	  		+ "<header><h1 id=\"title\">Resultados</h1></header>");
 	  try {
 		  List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 		  String lang = "en"; //English by default
@@ -80,7 +67,7 @@ public class HelloAppEngine extends HttpServlet {
 	                // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
 	                String fieldName = item.getFieldName();
 	                String fieldValue = item.getString();
-	                if (fieldName == "lang" && !fieldValue.isEmpty()) {
+	                if (fieldName.equals("lang") && !fieldValue.isEmpty()) {
 	                	lang = fieldValue;
 	                }
 	            } else {
@@ -108,9 +95,9 @@ public class HelloAppEngine extends HttpServlet {
             	return;
             }
 	        ByteString byteImg = ByteString.readFrom(fileContent);
-            out.print("<div>"
-					+ "<h2>--- Imagen ---</h2>\n"
-					+ "<img src=\"data:image/png;base64, ");
+            out.print("<div id=\"postimagediv\">"
+					+ "<h3>Imagen</h2>\n"
+					+ "<img id=\"img\"src=\"data:image/png;base64, ");
 				
             /* Muestro la imágen */
             out.print(Base64.getEncoder().encodeToString(byteImg.toByteArray()));
@@ -142,11 +129,11 @@ public class HelloAppEngine extends HttpServlet {
 				  out.print("<li>" + annotation.getDescription() + "\n");
 			  }
 			  textOCR = res.getFullTextAnnotation().getText();
-			  out.print("</ul><h3>Full Detection of Text</h3>\n<p id=\"textOCR\">" + textOCR + "</p>");
+			  out.print("</ul><h3>Texto leído</h3>\n<p id=\"textOCR\">" + textOCR + "</p>");
 		    }
 		    Translate translate = TranslateOptions.getDefaultInstance().getService();
 		    Translation translation = translate.translate(textOCR, TranslateOption.targetLanguage(lang));
-		    out.print("<h3>Translation of text to desired lenguage</h3><p>" + translation.getTranslatedText() + "</p>");
+		    out.print("<h3>Traducción</h3><p>" + translation.getTranslatedText() + "</p>");
 		    out.print("</div>");
 		    //System.out.println("Texto Traducido:" + translation.getTranslatedText());
 	} catch (Exception e) {

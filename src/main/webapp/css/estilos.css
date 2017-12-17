@@ -1,41 +1,96 @@
 /* Este CSS se encarga de darle la parte visual a la web. Embellece el html */
 
 /* Normal Elements */
-html {
-  background-image: url("zebra.jpg");
-  text-align:center;
+html{
+	background-color: #8e99f3;
+	height:100%;
 }
-div {
-  border: 1px solid black;
-  border-radius: 2em;
+body{
+	margin:0 auto;
+	height:100%;
+}
+header {
+  background-color: #5c6bc0;
   text-align:center;
-  width:80%;
   margin: 0 auto;
 }
 ul{
 	text-align:left;
 }
+h2{
+	background-color: #26418f;
+	color: #ffffff;
+	margin: 0 auto;
+}
+h3{
+	background-color: #5c6bc0;
+	color: #ffffff;
+	margin: 0 auto;
+	font-size:4vmin;
+}
+
 
 /* IDs */
 #title{
-  border: 2px solid black;
-  border-radius: 2em;
-  font-size:3em;
+  font-size:10vmin;
   text-align: center;
-  text-shadow: 3px 2px tomato;
-  width:80%;
   margin: 0 auto;
-  margin-bottom: 0.5em;
+  color: #ffffff;
+  width:100%;
 }
 
 #formdiv{
-	border: 3px solid black;
 	text-align:center;
-	width:80%;
+	width:100%;
+	height:70%;
+	margin:0 auto;
+	font-size: 3vmin;
 }
 
+#imageDiv{
+	height:50%;
+	margin: 0 auto;
+}
+
+#postimagediv{
+	height:100%;
+	margin:0 auto;
+}
+
+#img{
+	width:50%;
+	margin: auto;
+}
+
+#submit{
+	font-size:10vmin;
+	padding:20px 15px;
+	border-radius:0px;
+	position:absolute;
+	bottom:0px;
+	margin-left:auto;
+	margin-right:auto;
+	left:0;
+	right:0;
+}
 
 /* Classes */
 .thumb{
-	zoom:40%;
+	height:100%;
+}
+.custom-file-upload {
+	background-color:#5c6bc0;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color:#ffffff;
+    width:100%;
+    border: none;
+    text-decoration:none;
+}
+.custom-file-upload:hover{
+	background-color:#26418f;
+}
+input[type="file"]{
+	display: none;
 }
