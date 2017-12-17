@@ -88,6 +88,7 @@ public class PostMethodHandler extends HttpServlet {
             	return;
             }
 	        ByteString byteImg = ByteString.readFrom(fileContent);
+	        fileContent.close();
             out.print("<div id=\"postimagediv\">"
 					+ "<h3>Imagen</h2>\n"
 					+ "<img id=\"img\"src=\"data:image/png;base64, ");
@@ -124,11 +125,13 @@ public class PostMethodHandler extends HttpServlet {
 			  textOCR = res.getFullTextAnnotation().getText();
 			  out.print("</ul><h3>Texto leído</h3>\n<p id=\"textOCR\">" + textOCR + "</p>");
 		    }
+		    
+		    byteImg = null;
+		    
 		    Translate translate = TranslateOptions.getDefaultInstance().getService();
 		    Translation translation = translate.translate(textOCR, TranslateOption.targetLanguage(lang));
 		    out.print("<h3>Traducción</h3><p>" + translation.getTranslatedText() + "</p>");
 		    out.print("</div>");
-		    //System.out.println("Texto Traducido:" + translation.getTranslatedText());
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
