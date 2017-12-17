@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FilenameUtils;
 
 import com.google.protobuf.ByteString;
 import com.google.cloud.translate.Translate;
@@ -58,8 +57,6 @@ public class PostMethodHandler extends HttpServlet {
 	  try {
 		  List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 		  String lang = "en"; //English by default
-		  String fileName = "";
-		  String fileType = "";
 		  InputStream fileContent = null;
 		  long fileSizeLong = 0;
 	        for (FileItem item : items) {
@@ -72,11 +69,7 @@ public class PostMethodHandler extends HttpServlet {
 	                }
 	            } else {
 	                // Proceso el campo del fichero, de aquí obtengo la imágen que proceso después
-	                String fieldName = item.getFieldName();
-	                fileName = FilenameUtils.getName(item.getName());
 	                fileSizeLong = item.getSize();
-	                fileType = item.getContentType();
-	                
 	                fileContent = item.getInputStream();
 	                
 	            }
