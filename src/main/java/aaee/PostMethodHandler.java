@@ -53,7 +53,8 @@ public class PostMethodHandler extends HttpServlet {
 	  		"  	</head>\n" + 
 	  		"\n" + 
 	  		"  	<body>"
-	  		+ "<header><h1 id=\"title\">Resultados</h1></header>");
+	  		+ "<header><h1 id=\"title\">Resultados</h1></header>"
+	  		+ "<br/><div id=\"results\">");
 	  try {
 		  List<FileItem> items = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 		  String lang = "en"; //English by default
@@ -90,14 +91,14 @@ public class PostMethodHandler extends HttpServlet {
 	        ByteString byteImg = ByteString.readFrom(fileContent);
 	        fileContent.close();
             out.print("<div id=\"postimagediv\">"
-					+ "<h3>Imagen</h2>\n"
+					+ "<h3>Imagen</h3>\n"
 					+ "<img id=\"img\"src=\"data:image/png;base64, ");
 				
             /* Muestro la imágen */
             out.print(Base64.getEncoder().encodeToString(byteImg.toByteArray()));
             
             /* Muestro el final del div */
-			out.print("\" alt=\"No image found\"/>");
+			out.print("\" alt=\"No image found\" height=\"80%\"/></div>");
 			
 			// Detección de texto dentro de la imágen
 			ImageAnnotatorClient vision = ImageAnnotatorClient.create();
@@ -118,19 +119,19 @@ public class PostMethodHandler extends HttpServlet {
 				    System.out.printf("Error: %s\n", res.getError().getMessage());
 					return;	
 			  }
-			  out.print("<h3>Lista de labels</h3><ul>");
+			  out.print("<div class=\"resultclass\"><h3>Lista de labels</h3><ul>");
 			  for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 				  out.print("<li>" + annotation.getDescription() + "\n");
 			  }
 			  textOCR = res.getFullTextAnnotation().getText();
-			  out.print("</ul><h3>Texto leído</h3>\n<p id=\"textOCR\">" + textOCR + "</p>");
+			  out.print("</ul></div><div class=\"resultclass\"><h3>Texto leído</h3>\n<p id=\"textOCR\">" + textOCR + "</p></div>");
 		    }
 		    
 		    byteImg = null;
 		    
 		    Translate translate = TranslateOptions.getDefaultInstance().getService();
 		    Translation translation = translate.translate(textOCR, TranslateOption.targetLanguage(lang));
-		    out.print("<h3>Traducción</h3><p>" + translation.getTranslatedText() + "</p>");
+		    out.print("<div class=\"resultclass\"><h3>Traducción</h3><p>" + translation.getTranslatedText() + "</p></div>");
 		    out.print("</div>");
 	} catch (Exception e) {
 		e.printStackTrace();
